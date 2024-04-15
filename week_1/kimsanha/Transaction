@@ -68,14 +68,10 @@ public void query(String sql) {
 Spring 에서는 @Transaction 어노테이션을 이용하여 트랜잭션 처리가 가능하다. 
 @Transaction 어노테이션을 사용하면 DB에 autocommit이 false로 변하며 하나의 DB session에서 트랜잭션으로 묶어 인출, 입금 작업을 실행하며 작업이 끝나고 commit이 되며 autocommit이 true로 변한다.
 
---Transaction 
-
-
-
-
-프록시 객체는
-
-만약에 DB가 아닌 메모장에 데이터를 입력하면 spring 트랜잭션 어노테이션을 사용해도 무방? 또는 파이어 베이스를이용하면? 알아서 처리를 해주나? 
-
+@Transaction?
+@Transaction 어노테이션은 AOP를 사용하여 구현된다. 메인 로직 앞 뒤로 begin과 commit을 수행해주는 기능을 담당한다.
+-private은 @Transaction이 적용되지 않는다. -> proxy형태로 동작하기 때문에 외부에서 접근이 가능한 메서드만 설정할 수 있다.
+-Unckecked Exception에 rollback
+-@Transaction이 중첩되어 호출하면? -> 트랜잭션 전파 설정을 통해 관리가 가능하다. @Transactional어노테이션에 propagation 속성을 지정해 줌으로써 사용할 수 있다.
 
 
