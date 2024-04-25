@@ -12,6 +12,23 @@ deserialization?
 1. Value Type -> JAVA 기준으로 8가지가 있다. (byte, short,int, long, float, double, char, boolean) 해당 타입은 값이 스택에 쌓이며 직접 접근이 가능하다.
 2. Reference Type  -> 객체, String 등 힙에 메모리가 할당되고 스택에 메모리 번지주소가 담긴다. -> 해당 이유 떄문에 참조타입은 직렬화를 통해 주소값이 가지는 데이터들을 전부 모아 Value type 데이터로 변환한다.
 
+JAVA에서 직렬화 과정은 코드로 설명.
+
+스프링에서 사용하는 직렬화는?
+-> Spring 프레임워크에서는 주로 JSON 형식을 사용하여 객체를 직렬화하고 전송한다.
+-> spring에서는 MappingJackson2HttpMessageConverter가 HTTP 요청 및 응답의 메시지를 json형식으로 변환하는데 사용되는 클래스이다.
+
+MappingJackson2HttpMessageConverter?
+-> 스프링에서 자동으로 bean으로 등록되며 HttpMessageConverter 인터페이스를 구현하고 있다.
+-> spring에선 여러개의 메시지 컨버더가 등록되어 있다. Request Header에 Content-type을 기반으로 json을 처리한다.
+
+플로우
+1.클라이언트가 HTTP 요청을 보냄.
+2.DispatcherServlet이 요청을 받고 핸들러를 찾음.
+3.RequestMappingHandlerAdapter가 적절한 메시지 컨버터 선택.
+4.선택된 메시지 컨버터가 데이터 변환.
+5.변환된 데이터를 응답으로 전송.
+
 
 
 
