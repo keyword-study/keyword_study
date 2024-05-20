@@ -22,7 +22,7 @@ HTTP Connector: 표준 HTTP프로토콜로 요청을 받는 경우(브라우저 
 HTTP Connector vs AJP Connector?
 
 HTTP Connector는 클라이언트와 웹 서버 간의 표준 HTTP 통신을 담당하고,
-AJP Connector는 웹 서버와 서블릿 컨테이너 간의 효율적인 통신을 위해 사용
+AJP Connector는 웹 서버와 서블릿 컨테이너 간의 효율적인 통신을 위해 사용0
 
 
 
