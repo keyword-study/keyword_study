@@ -28,12 +28,35 @@ Heap 영역은 크게 2가지로 나눈다
 
 과정
 방법은 직접 공유!
+Serial GC
+-> Minor GC 에는 mark sweep , Major GC에는 mark sweep compact 알고리즘을 사용한다.
+-> CPU 코어가 1개일 때 사용하기 위해 개발된 GC이며 싱글쓰레드라서 STW가 가장 길다.
 
-Parallel Old GC
-CMS GC
-G1 GC
-Shenandoah GC
+Parallel GC
+-> java 8 default
+-> minor GC에는 멀티 쓰레드로 처리 Major GC는 싱글쓰레드
+-> Serial GC에 비해 STW시간이 짧다.
 
+Parallel OLD GC
+-> Parallel GC를 개선한 버전으로 Major GC도 멀티쓰레드로 처리를 한다.
+-> Mark Sweep Compact 알고리즘을 사용
+
+CMS(Concurrent Mark Sweep)GC
+->어플리케이션 쓰레드와 GC 쓰레드가 동시에 일어남 (STW 시간을 최대한 줄이기 위해)
+-> GC과정이 매우 복잡
+->CPU 사용량이 높음
+-> 메모리 *파편화가 일어남
+
+G1 GC(Garbage First)
+-> CMS GC 대체하기 위해 Java 9 버전 default
+-> 4GB 이상의 heap 메모리, stw시간이 0.5초 정도 필요한 상황에 사용
+-> Young/ old영역 없음 -> Region이라는 개념 사용하여 역할을 고정이 아닌 동적으로 부여
+-> Java9+ 부터 기본 GC로 자리잡은 G1 GC에서는 이전의 GC들처럼 일일히 메모리를 탐색해 객체들을 제거하지 않는다.
+대신 메모리가 많이 차있는 영역(region)을 인식하는 기능을 통해 메모리가 많이 차있는 영역을 우선적으로 GC 한다.
+즉, G1 GC는 Heap Memory 전체를 탐색하는 것이 아닌 영역(region)을 나눠 탐색하고 영역(region)별로 GC가 일어난다.
+또한 이전의 GC 들은 Young Generation에 있는 객체들이 GC가 돌때마다 살아남으면 Eden → Survivor0 → Survivor1으로 순차적으로 이동했지만,
+G1 GC에서는 순차적으로 이동하지는 않는다. 대신 G1 GC는 더욱 효율적이라고 생각하는 위치로 객체를 Reallocate(재할당) 시킨다.
+예를 들어 Survivor1 영역에 있는 객체가 Eden 영역으로 할당하는 것이 더 효율적이라고 판단될 경우 Eden 영역으로 이동시킨다.
 
 
 
