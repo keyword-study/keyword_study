@@ -29,6 +29,11 @@ Heap 영역은 크게 2가지로 나눈다
 과정
 방법은 직접 공유!
 
+Parallel Old GC
+CMS GC
+G1 GC
+Shenandoah GC
+
 
 
 
